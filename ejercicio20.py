@@ -2,8 +2,8 @@
 #CRUD => Create Read Update Delete
 
 #Lista creada fuera para que no se reinicie en cada ciclo
-lst = ['perico', 'maria']
-#indces   0         1
+lst = ['perico', 'maria', 'pedro']
+#indces   0         1        2
 
 #Crearemos un menu de acciones
 while True:
@@ -11,6 +11,7 @@ while True:
     print("2. Leer")
     print("3. Modificar")
     print("4. Eliminar")
+    print("5. Mostrar lista completa")
     print("0. Salir")
 
     opcion = input('Ingrese su opcion\n')
@@ -49,6 +50,20 @@ while True:
         #Eliminamos
         del lst[indice]
         #del lst esto elimina toda la lista
+        
+    elif opcion == '5':
+        #Recorrer y mostrar TODA la lista
+        
+        #forma 1 por indice
+        # range ( 3 ) => 0, 1, 2
+        for i in range(len(lst)):
+            print(f"i es el indice y vale {i} y su valor es {lst[i]}")
+            print("----------------------------------------------------")
+        
+        #forma 2 por valor
+        for v in lst:
+            print(f'Aca solo podemos imprimir el valor, en este caso {v}')
+            print('-------------------------------------------------------')
         
     elif opcion == '0':
         print('Saliendo de programa')
