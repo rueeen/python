@@ -8,6 +8,9 @@ modificar su nombre, apellido o numero
 4. Listar todos los contactos. El sistema debe listar todos los contactos de la lista
 0. Salir
 '''
+#Importamos siempre al inicio
+import os #modulo para interactuar con sistema operativo
+
 #Funcion con retorno
 def buscarConctacto(nombre, apellido, lista):
     for c in lista:
@@ -15,29 +18,53 @@ def buscarConctacto(nombre, apellido, lista):
             return c
     return None
 
+def buscarApellido(apellido, lista):
+    nueva_lista = []
+    for c in lista:
+        if c['apellido'] == apellido:
+            nueva_lista.append(c)
+    return nueva_lista
+    
+
 #Nuestro contenedor sera una lista vacia
 agenda = []
 while True:
+    #aca limpiamos menu
+    os.system('cls')
     print('''
-    ==== Menu de opciones ====
-    1. Agregar contacto
-    2. Modificar contacto
-    3. Eliminar contacto
-    4. Listar contactos
-    0. salir
+==== Menu de opciones ====
+1. Agregar contacto
+2. Modificar contacto
+3. Eliminar contacto
+4. Listar contactos
+5. Listar por apellido
+0. salir
             ''')
 
     op = input('Ingrese su opcion\n')
-    
+    #aca limpiamos menu
+    os.system('cls')
     if op == '1':
         print('==== Agregar contacto ====')
-        nombre = input('Ingrese el nombre\n').capitalize() # peRicO => Perico
-        apellido = input('Ingrese apellido\n').capitalize()
-        numero = int(input('Ingrese numero\n'))
-        contacto = {'nombre':nombre, 'apellido': apellido, 'numero':numero}
-        #Agregando contacto a agenda
-        agenda.append(contacto)
-        print('Contacto agregado')
+        nombre = input('Ingrese el nombre\n').capitalize().strip() # peRicO => Perico
+        apellido = input('Ingrese apellido\n').capitalize().strip() # __perico__ => Perico
+        codigo_region = input('Ingrese codigo region\n')
+        try:
+            numero = int(input('Ingrese numero\n'))
+            
+            if nombre == '' and apellido == '':
+                print('Nombre y apellido no pueden ser vacios')
+            
+            elif len(str(numero)) != 8:
+                print('El numero debe tener 8 digitos')
+                
+            else:
+                contacto = {'nombre':nombre, 'apellido': apellido, 'numero':codigo_region+' '+str(numero)}
+                #Agregando contacto a agenda
+                agenda.append(contacto)
+                print('Contacto agregado')
+        except:
+            print('Error: Numero ingresado no corresponde')
         
     elif op == '2':
         print('==== Modificar contacto ====')
@@ -74,3 +101,23 @@ while True:
                 print(f'Apellido: {c["apellido"]}')
                 print(f'Numero: {c["numero"]}')
                 print('----------------------------------------')
+    
+    elif op == '5':
+        print('==== Listar Contactos por Apellido====')
+        apellido = input('Ingrese apellido a buscar\n').capitalize().strip()
+        resultado = buscarApellido(apellido, agenda)
+        if len(resultado) == 0:
+            print('Aun no ha agregado contactos')
+        else:
+            for c in resultado:
+                # c => {'nombre':nombre, 'apellido':apellido, 'numero':numero}
+                print(f'Nombre: {c["nombre"]}')
+                print(f'Apellido: {c["apellido"]}')
+                print(f'Numero: {c["numero"]}')
+                print('----------------------------------------')
+                
+    elif op == '0':
+        print('Saliendo de sistema...')
+        break
+                
+    input('Presione enter para continuar...')
