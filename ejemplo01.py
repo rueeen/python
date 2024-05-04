@@ -10,3 +10,7 @@ print(nombre, " ", apellido, " ", edad)
 # por defecto print tiene un argumento llamado 'sep'
 # este argumento genera un espacio por defecto entre parametros
 print(nombre, apellido, edad, sep='')
+
+from ejemplo02 import funcion_importada
+
+funcion_importada()

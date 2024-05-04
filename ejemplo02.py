@@ -8,3 +8,6 @@ print('Su nombre es', end='/')
 print(nombre)
 #forma completa de print
 #print(parametros, sep=" ", end="\n")
+
+def funcion_importada():
+    print('Esta funcion esta importada')
